@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="rideSharing">
+<head>
+	<title>Welcome to ride sharing</title>
+</head>
+<body ng-controller="PassengerController" >
+	
+	<h1>Welcome to ride sharing</h1>
+	
+
+  <div ng-show=isEditing>
+	
+	<form name="myForm" novalidate>
+		<label src="first_name">first name:</label><input type="text" name="first_name" ng-model="first_name" required/>
+		  <span style="color:red" ng-show="myForm.first_name.$dirty && myForm.first_name.$invalid">
+		  <span ng-show="myForm.first_name.$error.required"> first name is required</span>
+		  </span></br>
+		  {{firstname}}
+
+	    <label src="Last_name">Last name:</label><input type="text" name="Last_name" ng-model="Last_name" required/>
+	      <span style="color:red" ng-show="myForm.Last_name.$dirty && myForm.Last_name.$invalid">
+		  <span ng-show="myForm.Last_name.$error.required"> last name is required</span>
+		  </span></br>
+	      {{LastName}}
+	
+	   <label src="city">City:</label><input name="city" ng-model="city" required/>
+	      <span style="color:red" ng-show="myForm.city.$dirty && myForm.city.$invalid">
+		  <span ng-show="myForm.city.$error.required"> Enter city name</span>
+		  </span></br>
+		  
+	 
+	  <label src="dateOfBirth" >Date of birth:</label><input name="Date_of_birth" ng-model="dateOfBirth" required>
+	      <span style="color:red" ng-show="myForm.Date_of_birth.$dirty && myForm.Date_of_birth.$invalid">
+		  <span ng-show="myForm.Date_of_birth.$error.required"> Enter date of birth</span>
+		  </span></br>
+		  
+	
+	    <h2>Add passenger</h2> 
+      <button ng-disabled="myForm.first_name.$invalid || myForm.Last_name.$invalid|| myForm.city.$invalid ||  myForm.Date_of_birth.$invalid" ng-click="add()">Add Passenger</button>
+      <button ng-click="endEdit()">cancel</button>
+    </form>
+  </div> 
+   <div ng-show=!isEditing> 
+	  <h2>Passengers</h2>
+	  <button ng-click="beginEdit()">edit</button>
+
+	     <table border="1">
+	        <caption>List of passengers</caption>
+	         <tr>
+	         	 <td>id</td>
+	         	 <td>Name</td>
+	         	 <td>City</td>
+	         	 <td>Date of birth</td>
+	         </tr>
+	         <tr ng-repeat="passenger in passengers| filter:first_name|filter:Last_name"> 
+	            <td>{{passenger.id}}</td>
+	            <td>{{passenger.firstname+''+passenger.LastName}}</td>
+	            <td>{{passenger.city}}</td>
+	            <td>{{passenger.dateOfBirth|date}}</td>
+	            <td>
+	            <a ng-click="remove(passenger)" href="">remove            	
+	            </a>
+	            </td>
+	         </tr>
+	     
+	      </table>  
+	      
+	</div>
+ </div> 
+<script type="text/javascript" src="scripts/angular.js"></script>
+<script type="text/javascript" src="scripts/angular-route.js"></script>
+<script type="text/javascript" src="app/app1.js"></script>
+<script type="text/javascript" src="app/passengers/rs-passengers.js"></script>
+
+</body>
+</html>
